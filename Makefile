@@ -16,7 +16,8 @@
 
 CC = gcc
 CFLAGS = -c -Wall
-SOURCES = src/begin.c src/execute_command.c src/get_command.c src/seashell.c
+SOURCES = src/begin.c src/execute_command.c src/get_command.c src/seashell.c \
+		  src/understand_command.c
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = SeaShell
 

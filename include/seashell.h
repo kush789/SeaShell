@@ -14,13 +14,23 @@
 *
 ******************************************************************************/
 
-#define SEASHELL_BUFF_LENGTH 10
+/* Macros */
 
+#define SEASHELL_BUFF_LENGTH 1024
+#define SEASHELL_TOKEN_SIZE 64
+#define SEASHELL_TOKEN_DELIM " \t\r\n\a"
+
+/* Initializes shell */
 int seashell_begin();
 
+/* reads command from stdin */
 int seashell_get_command(char ** command);
 
+/* splits stdin input into command and args */
+int seashell_understand_command(char *** arguments, char * command);
+
 int seashell_execute_command();
+
 
 /* EXIT CODES :
 *	

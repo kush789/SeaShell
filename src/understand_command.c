@@ -19,45 +19,42 @@
 #include "string.h"
 #include "../include/seashell.h"
 
-int seashell_get_command(char ** command)
+int seashell_understand_command(char *** arguments, char * command)
 {
-	unsigned char ch;
-	int pos, buffer_size, status;
+	char * token;
+	int pos, status, buffer_size;
 
 	pos = 0;
-	buffer_size = SEASHELL_BUFF_LENGTH;
+	buffer_size = SEASHELL_TOKEN_SIZE;
+	*arguments = (char **) malloc((buffer_size + 1) * sizeof(char *));
 
-	*command = (char *) malloc((buffer_size + 1) * sizeof(char));
-
-	if (!command)
+	if (!arguments)
 	{
 		status = 1;
 		goto cleanup;
 	}
 
-	while(1)
-	{
-		ch = getchar();
+	token = strtok(command, SEASHELL_TOKEN_DELIM);
 
-		if ((int)ch == EOF || ch == '\n')
-		{
-			(*command)[pos] = '\0';
-			status = 0;
-			goto cleanup;
-		}
-		else
-			(*command)[pos++] = ch;
+	while (token != NULL)
+	{
+		(*arguments)[pos++] = token;
 
 		if (pos > buffer_size)
 		{
-			buffer_size += SEASHELL_BUFF_LENGTH;
-			if (!realloc(*command, (buffer_size + 1) * sizeof(char)))
+			buffer_size += SEASHELL_TOKEN_SIZE;
+			if (!realloc(*arguments, (buffer_size + 1) * sizeof(char *)))
 			{
 				status = 1;
 				goto cleanup;
 			}
 		}
+
+		token = strtok(NULL, SEASHELL_TOKEN_DELIM);
 	}
+
+	(*arguments)[pos] = NULL;
+	status = 0;
 
 	cleanup:
 

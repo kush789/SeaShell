@@ -21,15 +21,19 @@
 
 int seashell_begin()
 {
-	int status;
+	int status, i;
 	char * command;
 	char ** arguments;
 	ssize_t block_size;
 
 	do {
 
-		status = seashell_get_command(&command);
-		printf("%s\n", command);
+		status = seashell_get_command(&command);	/* get command */
+
+		if (status)
+			goto cleanup;
+
+		status = seashell_understand_command(&arguments, command);
 
 		if (status)
 			goto cleanup;
@@ -39,6 +43,17 @@ int seashell_begin()
 	cleanup:
 
 	free(command);	/* command is allocated memory in seashell_get_command() */
+	
+	i = 0;			/* arguments is allocated mem in */
+	while (1)		/* seashell_understand_command() */
+	{
+		if (arguments[i] == NULL)
+			break;
+		else
+			free(arguments[i++]);
+	}
+	free(arguments);
+
 
 	return status;
 }
