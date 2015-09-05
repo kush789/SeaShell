@@ -14,17 +14,6 @@
 *
 ******************************************************************************/
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "seashell.h"
+int seashell();
 
-int seashell()
-{
-	int status;
-
-	do {
-		status = execute_command();
-	} while (status);
-
-	return 0;
-}
+int seashell_execute_command();
