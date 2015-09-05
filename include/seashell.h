@@ -14,6 +14,18 @@
 *
 ******************************************************************************/
 
-int seashell();
+#define SEASHELL_BUFF_LENGTH 10
+
+int seashell_begin();
+
+int seashell_get_command(char ** command);
 
 int seashell_execute_command();
+
+/* EXIT CODES :
+*	
+*	0. No problem woo hoo
+*	1. Memory allocation problem
+*
+*
+*/

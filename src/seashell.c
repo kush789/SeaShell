@@ -18,13 +18,14 @@
 #include "stdlib.h"
 #include "../include/seashell.h"
 
-int seashell()
+int main()
 {
 	int status;
 
-	do {
-		status = seashell_execute_command();
-	} while (status);
+	status = seashell_begin();
 
+	if (status == 1)
+		printf("Allocation problem, memory full. Quiting\n");
+	
 	return 0;
 }

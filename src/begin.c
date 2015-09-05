@@ -16,10 +16,29 @@
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 #include "../include/seashell.h"
 
-int seashell_execute_command()
+int seashell_begin()
 {
-	
-	return 0;
+	int status;
+	char * command;
+	char ** arguments;
+	ssize_t block_size;
+
+	do {
+
+		status = seashell_get_command(&command);
+		printf("%s\n", command);
+
+		if (status)
+			goto cleanup;
+
+	} while (!status);
+
+	cleanup:
+
+	free(command);	/* command is allocated memory in seashell_get_command() */
+
+	return status;
 }

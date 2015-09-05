@@ -15,34 +15,15 @@
 #******************************************************************************
 
 CC = gcc
-CFLAGS = -c -g -Wall
+CFLAGS = -c -Wall
+SOURCES = src/begin.c src/execute_command.c src/get_command.c src/seashell.c
+OBJECTS = $(SOURCES:.cpp=.o)
+EXECUTABLE = SeaShell
 
-SOURCES = src/seashell.c src/execute_command.c
-OBJECTS = $(SOURCES:.c=.o)
-
-HEADER = seashell.h
-LIB = libSeaShell.a
-
-TEMP_HEADER_PATH = ./include/$(HEADER)
-HEADER_INCLUDE_PATH = /usr/local/include/
-
-TEMP_LIB_PATH = ./$(LIB)
-LIB_INSTALL_PATH = /usr/local/lib/
-
-all: $(SOURCES) $(LIB)
+all: $(SOURCES) $(EXECUTABLE)
     
-$(LIB): $(OBJECTS) 
-	ar -rcs $(LIB) $(OBJECTS)
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
-
-install: $(LIB)
-	cp $(TEMP_HEADER_PATH) $(HEADER_INCLUDE_PATH)
-	cp $(TEMP_LIB_PATH) $(LIB_INSTALL_PATH)
-	rm $(TEMP_LIB_PATH)
-	rm $(OBJECTS)
-
-clean:
-	rm $(HEADER_INCLUDE_PATH)$(HEADER)
-	rm $(LIB_INSTALL_PATH)$(LIB)

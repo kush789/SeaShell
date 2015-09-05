@@ -16,10 +16,44 @@
 
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 #include "../include/seashell.h"
 
-int seashell_execute_command()
+int seashell_get_command(char ** command)
 {
-	
-	return 0;
+	unsigned char ch;
+	int pos, buffer_size, status;
+
+	pos = 0;
+	buffer_size = SEASHELL_BUFF_LENGTH;
+
+	*command = (char *) malloc((buffer_size + 1) * sizeof(char));
+
+	while(1)
+	{
+		ch = getchar();
+
+		if ((int)ch == EOF || ch == '\n')
+		{
+			(*command)[pos] = '\0';
+			status = 0;
+			goto cleanup;
+		}
+		else
+			(*command)[pos++] = ch;
+
+		if (pos > buffer_size)
+		{
+			buffer_size += SEASHELL_BUFF_LENGTH;
+			if (!realloc(*command, buffer_size + 1))
+			{
+				status = 1;
+				goto cleanup;
+			}
+		}
+	}
+
+	cleanup:
+
+	return status;
 }
