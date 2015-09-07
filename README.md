@@ -27,15 +27,11 @@ Please report any bugs or requests that you have using the GitHub issue tracker!
 License
 ------------
 
-SeaShell is free software; you can redistribute it and/or modify
-                   Do What the Fuck You Want to Public License
-                              http://www.wtfpl.net/
+            SeaShell is free software; you can redistribute it and/or modify
+            it under the terms of the GNU General Public License as published by
+            the Free Software Foundation; either version 2 of the License, or
+            (at your option) any later version.
 
-                   Author is nor liable for misuse; Use carefully!
-
+Author
+---------
             2015 (C) Kushagra Singh | kushagra14056 [at thingy] iiitd.ac.in
-
-*	SeaShell is free software; you can redistribute it and/or modify
-*	it under the terms of the GNU General Public License as published by
-*	the Free Software Foundation; either version 2 of the License, or
-*	(at your option) any later version.
