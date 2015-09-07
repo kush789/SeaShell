@@ -34,6 +34,8 @@ int seashell_understand_command(char *** arguments, char * command)
 		goto cleanup;
 	}
 
+	/* _/\_ thank god strtok exists _/\_ */
+
 	token = strtok(command, SEASHELL_TOKEN_DELIM);
 
 	while (token != NULL)

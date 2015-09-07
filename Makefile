@@ -16,9 +16,8 @@
 
 CC = gcc
 CFLAGS = -c -Wall
-SOURCES = src/begin.c src/execute_command.c src/get_command.c src/seashell.c \
-		  src/understand_command.c
-OBJECTS = $(SOURCES:.cpp=.o)
+SOURCES = $(wildcard ./src/*.c)
+OBJECTS = $(SOURCES:.c=.o)
 EXECUTABLE = SeaShell
 
 all: $(SOURCES) $(EXECUTABLE)
@@ -28,3 +27,8 @@ $(EXECUTABLE): $(OBJECTS)
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm SeaShell
+	rm src/*.o
+	

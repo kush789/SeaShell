@@ -29,8 +29,8 @@ int seashell_get_command(char ** command);
 /* splits stdin input into command and args */
 int seashell_understand_command(char *** arguments, char * command);
 
-int seashell_execute_command();
-
+/* forks and executes command ising execvp */
+int seashell_execute_command(char ** arguments);
 
 /* EXIT CODES :
 *	

@@ -24,7 +24,6 @@ int seashell_begin()
 	int status, i;
 	char * command;
 	char ** arguments;
-	ssize_t block_size;
 
 	do {
 
@@ -34,6 +33,11 @@ int seashell_begin()
 			goto cleanup;
 
 		status = seashell_understand_command(&arguments, command);
+
+		if (status)
+			goto cleanup;
+
+		status = seashell_execute_command(arguments);
 
 		if (status)
 			goto cleanup;
