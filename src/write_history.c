@@ -20,9 +20,9 @@
 #include "unistd.h"
 #include "../include/seashell.h"
 
-history_node * seashell_write_history(char * command)
+seashell_history_node * seashell_write_history(char * command)
 {
-	history_node * temp = malloc(sizeof(history_node));
+	seashell_history_node * temp = malloc(sizeof(seashell_history_node));
 
 	temp->command = malloc((SEASHELL_BUFF_LENGTH + 1) * sizeof(char));
 	temp->next = NULL;

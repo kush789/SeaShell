@@ -19,7 +19,8 @@
 #include "unistd.h"
 #include "../include/seashell.h"
 
-history_node * seashell_create_history(char * command, history_node ** HEAD)
+seashell_history_node * seashell_create_history(char * command,
+												seashell_history_node ** HEAD)
 {
 	if (*HEAD == NULL)
 	{
@@ -28,7 +29,7 @@ history_node * seashell_create_history(char * command, history_node ** HEAD)
 	}
 	else
 	{
-		history_node * temp = seashell_write_history(command);
+		seashell_history_node * temp = seashell_write_history(command);
 		temp->next = *HEAD;
 		*HEAD = temp;
 	}

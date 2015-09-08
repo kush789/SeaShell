@@ -20,6 +20,16 @@
 #define SEASHELL_TOKEN_SIZE 64
 #define SEASHELL_TOKEN_DELIM " \t\r\n\a"
 
+/* node for maintaing history */
+typedef struct _seashell_history_node
+{
+	char * command;
+	struct _seashell_history_node * next;
+} seashell_history_node;
+
+/* marks head of history linked list */
+seashell_history_node * HEAD;
+
 /* Initializes shell */
 int seashell_begin();
 
@@ -43,17 +53,12 @@ void seashell_builtin_cd(char ** arguments);
 /* builtin help */
 void seashell_builtin_help(char ** arguments);
 
-typedef struct _history_node
-{
-	char * command;
-	struct _history_node * next;
-} history_node;
+/* wrotes command to new seashell_history_node and returns it */
+seashell_history_node * seashell_write_history(char * command);
 
-history_node * HEAD;
-
-history_node * seashell_write_history(char * command);
-
-history_node * seashell_create_history(char * command, history_node ** HEAD);
+/* adds command to history linked list */
+seashell_history_node * seashell_create_history(char * command,
+												seashell_history_node ** HEAD);
 
 void seashell_builtin_history();
 

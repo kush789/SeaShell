@@ -20,7 +20,7 @@
 
 void seashell_builtin_history()
 {
-	history_node * temp = HEAD;
+	seashell_history_node * temp = HEAD;
 
 	while (temp != NULL)
 	{
