@@ -17,46 +17,21 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#include "signal.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
-int seashell_begin()
+void seashell_builtin_cd(char ** arguments)
 {
-	int status, i;
-	char * command;
-	char ** arguments;
-
-	signal(SIGINT, seashell_kill);
-
-	do {
-		status = seashell_get_command(&command);	/* get command */
-
-		if (status)
-			goto cleanup;
-
-		status = seashell_understand_command(&arguments, command);
-
-		if (status)
-			goto cleanup;
-
-		seashell_execute_command(arguments);
-
-	} while (!status);
-
-	cleanup:
-
-	free(command);	/* command is allocated memory in seashell_get_command() */
-	
-	i = 0;			/* arguments is allocated mem in */
-	while (1)		/* seashell_understand_command() */
+	if (arguments[1] == NULL)
 	{
-		if (arguments[i] == NULL)
-			break;
-		else
-			free(arguments[i++]);
+		fprintf(stderr, "seashell: expected arguments");
+		return;
 	}
 
-	free(arguments);
-
-	return status;
+	if (chdir(arguments[1]) != 0)
+	{
+		fprintf(stderr, "SeaShell: %s: ", arguments[0]);
+		perror("");
+	}
 }
+

@@ -16,47 +16,34 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
-#include "signal.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
-int seashell_begin()
+void seashell_execute_nonbuiltin(char ** arguments)
 {
-	int status, i;
-	char * command;
-	char ** arguments;
+	pid_t pid;
+	int status;
 
-	signal(SIGINT, seashell_kill);
+	pid = fork();
 
-	do {
-		status = seashell_get_command(&command);	/* get command */
-
-		if (status)
-			goto cleanup;
-
-		status = seashell_understand_command(&arguments, command);
-
-		if (status)
-			goto cleanup;
-
-		seashell_execute_command(arguments);
-
-	} while (!status);
-
-	cleanup:
-
-	free(command);	/* command is allocated memory in seashell_get_command() */
-	
-	i = 0;			/* arguments is allocated mem in */
-	while (1)		/* seashell_understand_command() */
+	if (pid == 0)
 	{
-		if (arguments[i] == NULL)
-			break;
-		else
-			free(arguments[i++]);
+		if (execvp(arguments[0], arguments) == -1)
+		{
+			fprintf(stderr, "SeaShell: %s: ", arguments[0]);
+			perror("");
+		}
 	}
 
-	free(arguments);
+	else if (pid < 0)
+		perror("SeaShell: ");
 
-	return status;
+	else
+	{
+		do 
+			waitpid(pid, &status, WUNTRACED);
+		while 
+			(!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
+
 }

@@ -30,10 +30,16 @@ int seashell_get_command(char ** command);
 int seashell_understand_command(char *** arguments, char * command);
 
 /* forks and executes command ising execvp */
-int seashell_execute_command(char ** arguments);
+void seashell_execute_command(char ** arguments);
+
+void seashell_execute_nonbuiltin(char ** arguments);
 
 /* Handles ctrl + c respectfully */
 void seashell_kill();
+
+/* builtin cd */
+void seashell_builtin_cd(char ** arguments);
+
 
 /* EXIT CODES :
 *	

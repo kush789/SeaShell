@@ -16,35 +16,20 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "unistd.h"
+#include "string.h"
 #include "../include/seashell.h"
 
-int seashell_execute_command(char ** arguments)
+void seashell_execute_command(char ** arguments)
 {
-	pid_t pid;
-	int status;
+	if (arguments[0] == NULL)
+		return;
 
-	pid = fork();
-
-	if (pid == 0)
+	if (strcmp(arguments[0], "cd") == 0)
 	{
-		if (execvp(arguments[0], arguments) == -1)
-		{
-			fprintf(stderr, "SeaShell: %s: ", arguments[0]);
-			perror("");
-		}
+		seashell_builtin_cd(arguments);
+		return;
 	}
 
-	else if (pid < 0)
-		perror("SeaShell: ");
+	seashell_execute_nonbuiltin(arguments);
 
-	else
-	{
-		do 
-			waitpid(pid, &status, WUNTRACED);
-		while 
-			(!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
-	
-	return 0;
 }
