@@ -17,24 +17,15 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
-void seashell_execute_command(char ** arguments)
+void seashell_builtin_help(char ** arguments)
 {
-	if (arguments[0] == NULL)
-		return;
+	printf("\nHi, welcome to SeaShell, a simple shell written in C.\n");
+	printf("Copyright (C) 2015 Kushagra Singh | kushagra14056 @ iiitd.ac.in\n\n");
+	printf("The following commands are inbuilt :\n");
+	printf("	* cd\n");
+	printf("	* help\n\n");
 
-	if (strcmp(arguments[0], "cd") == 0)
-	{
-		seashell_builtin_cd(arguments);
-		return;
-	}
-
-	if (strcmp(arguments[0], "help") == 0)
-	{
-		seashell_builtin_help(arguments);
-		return;
-	}
-
-	seashell_execute_nonbuiltin(arguments);
 }

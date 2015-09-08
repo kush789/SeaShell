@@ -40,6 +40,8 @@ void seashell_kill();
 /* builtin cd */
 void seashell_builtin_cd(char ** arguments);
 
+/* builtin cd */
+void seashell_builtin_help(char ** arguments);
 
 /* EXIT CODES :
 *	
