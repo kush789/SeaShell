@@ -16,51 +16,15 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
-#include "signal.h"
 #include "../include/seashell.h"
 
-int seashell_begin()
+void seashell_builtin_history()
 {
-	int status, i;
-	char * command;
-	char ** arguments;
+	history_node * temp = HEAD;
 
-	signal(SIGINT, seashell_kill);
-
-	HEAD = NULL;
-
-	do {
-		status = seashell_get_command(&command);	/* get command */
-
-		if (status)
-			goto cleanup;
-
-		HEAD = seashell_create_history(command, &HEAD);
-
-		status = seashell_understand_command(&arguments, command);
-
-		if (status)
-			goto cleanup;
-
-		seashell_execute_command(arguments);
-
-	} while (!status);
-
-	cleanup:
-
-	free(command);	/* command is allocated memory in seashell_get_command() */
-	
-	i = 0;			/* arguments is allocated mem in */
-	while (1)		/* seashell_understand_command() */
+	while (temp != NULL)
 	{
-		if (arguments[i] == NULL)
-			break;
-		else
-			free(arguments[i++]);
+		printf("%s\n", temp->command);
+		temp = temp->next;
 	}
-
-	free(arguments);
-
-	return status;
 }

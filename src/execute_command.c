@@ -36,5 +36,11 @@ void seashell_execute_command(char ** arguments)
 		return;
 	}
 
+	if (strcmp(arguments[0], "history") == 0)
+	{
+		seashell_builtin_history(arguments);
+		return;
+	}
+
 	seashell_execute_nonbuiltin(arguments);
 }

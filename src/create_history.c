@@ -16,51 +16,22 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
-#include "signal.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
-int seashell_begin()
+history_node * seashell_create_history(char * command, history_node ** HEAD)
 {
-	int status, i;
-	char * command;
-	char ** arguments;
-
-	signal(SIGINT, seashell_kill);
-
-	HEAD = NULL;
-
-	do {
-		status = seashell_get_command(&command);	/* get command */
-
-		if (status)
-			goto cleanup;
-
-		HEAD = seashell_create_history(command, &HEAD);
-
-		status = seashell_understand_command(&arguments, command);
-
-		if (status)
-			goto cleanup;
-
-		seashell_execute_command(arguments);
-
-	} while (!status);
-
-	cleanup:
-
-	free(command);	/* command is allocated memory in seashell_get_command() */
-	
-	i = 0;			/* arguments is allocated mem in */
-	while (1)		/* seashell_understand_command() */
+	if (*HEAD == NULL)
 	{
-		if (arguments[i] == NULL)
-			break;
-		else
-			free(arguments[i++]);
+		*HEAD = seashell_write_history(command);
+		(*HEAD)->next = NULL;
+	}
+	else
+	{
+		history_node * temp = seashell_write_history(command);
+		temp->next = *HEAD;
+		*HEAD = temp;
 	}
 
-	free(arguments);
-
-	return status;
+	return *HEAD;
 }

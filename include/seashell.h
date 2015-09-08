@@ -40,8 +40,22 @@ void seashell_kill();
 /* builtin cd */
 void seashell_builtin_cd(char ** arguments);
 
-/* builtin cd */
+/* builtin help */
 void seashell_builtin_help(char ** arguments);
+
+typedef struct _history_node
+{
+	char * command;
+	struct _history_node * next;
+} history_node;
+
+history_node * HEAD;
+
+history_node * seashell_write_history(char * command);
+
+history_node * seashell_create_history(char * command, history_node ** HEAD);
+
+void seashell_builtin_history();
 
 /* EXIT CODES :
 *	
