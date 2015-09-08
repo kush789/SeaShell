@@ -17,6 +17,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "signal.h"
 #include "../include/seashell.h"
 
 int seashell_begin()
@@ -25,8 +26,9 @@ int seashell_begin()
 	char * command;
 	char ** arguments;
 
-	do {
+	signal(SIGINT, seashell_kill);
 
+	do {
 		status = seashell_get_command(&command);	/* get command */
 
 		if (status)
@@ -56,8 +58,8 @@ int seashell_begin()
 		else
 			free(arguments[i++]);
 	}
-	free(arguments);
 
+	free(arguments);
 
 	return status;
 }

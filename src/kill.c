@@ -14,31 +14,13 @@
 *
 ******************************************************************************/
 
-/* Macros */
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "../include/seashell.h"
 
-#define SEASHELL_BUFF_LENGTH 1024
-#define SEASHELL_TOKEN_SIZE 64
-#define SEASHELL_TOKEN_DELIM " \t\r\n\a"
-
-/* Initializes shell */
-int seashell_begin();
-
-/* reads command from stdin */
-int seashell_get_command(char ** command);
-
-/* splits stdin input into command and args */
-int seashell_understand_command(char *** arguments, char * command);
-
-/* forks and executes command ising execvp */
-int seashell_execute_command(char ** arguments);
-
-/* Handles ctrl + c respectfully */
-void seashell_kill();
-
-/* EXIT CODES :
-*	
-*	0. No problem woo hoo
-*	1. Memory allocation problem
-*
-*
-*/
+void seashell_kill()
+{
+	fprintf(stderr, "Exiting SeaShell, seeya later!\n\n");
+	exit(0);
+}
