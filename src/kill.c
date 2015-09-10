@@ -21,6 +21,6 @@
 
 void seashell_kill()
 {
-	fprintf(stderr, "Exiting SeaShell, seeya later!\n\n");
+	printf("\nExiting SeaShell, seeya!\n");
 	exit(0);
 }

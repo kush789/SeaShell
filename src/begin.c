@@ -44,7 +44,6 @@ int seashell_begin()
 			goto cleanup;
 
 		seashell_execute_command(arguments);
-
 	} while (!status);
 
 	cleanup:
