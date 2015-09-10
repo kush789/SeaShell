@@ -25,12 +25,16 @@ int seashell_begin()
 	int status, i;
 	char * command;
 	char ** arguments;
+	char dir[1024];
 
 	signal(SIGINT, seashell_kill);
 
 	HEAD = NULL;
 
 	do {
+		getcwd(dir, sizeof(dir));
+		printf("%s > ", dir);
+		
 		status = seashell_get_command(&command);	/* get command */
 
 		if (status)

@@ -36,24 +36,52 @@ void seashell_execute_nonbuiltin(char ** arguments)
 		{
 			if (strcmp("<", arguments[i]) == 0)
 			{
+				if (arguments[i + 1] == NULL)
+				{
+					printf("Seashell: No file given\n");
+					arguments[i] = NULL;
+					break;
+				}
+
 				int fd = open(arguments[i + 1], O_RDONLY, 0);
-    			dup2(fd, STDIN_FILENO);
-    			close(fd);
+				if (fd == -1)
+				{
+					printf("Seashell: File not found\n");
+					break;
+				}
+				else
+				{
+					dup2(fd, STDIN_FILENO);
+    				close(fd);
+    			}
 
     			arguments[i] = NULL;
-    			i += 1;
 			}
 			else if (strcmp(">", arguments[i]) == 0)
 			{
+				if (arguments[i + 1] == NULL)
+				{
+					printf("Seashell: No file given\n");
+					arguments[i] = NULL;
+					break;
+				}
+
 				int fd = creat(arguments[i + 1], 0644);
-				dup2(fd, STDOUT_FILENO);
-				close(fd);
+				if (fd == -1)
+				{
+					printf("Seashell: File not found\n");
+					break;
+				}
+				else
+				{
+					dup2(fd, STDOUT_FILENO);
+					close(fd);
+				}
 
     			arguments[i] = NULL;
-				i += 1;
 			}
-			else 
-				i += 1;
+			
+			i += 1;
 		}
 
 		if (execvp(arguments[0], arguments) == -1)
