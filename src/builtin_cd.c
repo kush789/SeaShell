@@ -24,7 +24,7 @@ void seashell_builtin_cd(char ** arguments)
 {
 	if (arguments[1] == NULL)
 	{
-		fprintf(stderr, "seashell: expected arguments");
+		fprintf(stderr, "SeasSell: expected arguments");
 		return;
 	}
 
@@ -34,4 +34,3 @@ void seashell_builtin_cd(char ** arguments)
 		perror("");
 	}
 }
-

@@ -1,1 +1,1 @@
-sudo /Users/kush/Desktop/code/courseprojects/SeaShell/Seashell
+/Users/kush/Desktop/code/courseprojects/SeaShell/Seashell

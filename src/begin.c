@@ -18,6 +18,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "signal.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
 int seashell_begin()

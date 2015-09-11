@@ -21,11 +21,11 @@
 void seashell_builtin_history()
 {
 	seashell_history_node * temp = HEAD;
-	int count = 0;
+	int count = 1;
 
 	while (temp != NULL)
 	{
-		printf("[%d] %s\n", count + 1, temp->command);
+		printf("[%d] %s\n", count, temp->command);
 		count += 1;
 		temp = temp->next;
 	}

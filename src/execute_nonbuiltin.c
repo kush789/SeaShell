@@ -19,6 +19,7 @@
 #include "unistd.h"
 #include "string.h"
 #include "fcntl.h"
+#include "unistd.h"
 #include "../include/seashell.h"
 
 void seashell_execute_nonbuiltin(char ** arguments)
@@ -44,9 +45,10 @@ void seashell_execute_nonbuiltin(char ** arguments)
 				}
 
 				int fd = open(arguments[i + 1], O_RDONLY, 0);
-				if (fd == -1)
+				if (fd < 0)
 				{
-					printf("Seashell: File not found\n");
+					fprintf(stderr, "SeaShell: %s: ", arguments[0]);
+					perror("");
 					break;
 				}
 				else
@@ -67,9 +69,10 @@ void seashell_execute_nonbuiltin(char ** arguments)
 				}
 
 				int fd = creat(arguments[i + 1], 0644);
-				if (fd == -1)
+				if (fd < 0)
 				{
-					printf("Seashell: File not found\n");
+					fprintf(stderr, "SeaShell: %s: ", arguments[0]);
+					perror("");
 					break;
 				}
 				else
